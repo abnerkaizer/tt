@@ -30,10 +30,14 @@ pub fn run() {
         None => "",
     };
     let tcp = matches.value_of("TCP");
-    match tcp {
-        Some(_b) => {
-            tcpstream::run(input.to_string());
-        }
-        None => udpsocket::run(input.to_string()),
+
+    let t: bool = match tcp {
+        Some(b) => b.trim().parse().expect("Boolean was expected find"),
+        None => false,
     };
+    if t {
+        tcpstream::run(input.to_string());
+    } else {
+        udpsocket::run(input.to_string());
+    }
 }
