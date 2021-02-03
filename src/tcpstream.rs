@@ -24,7 +24,7 @@ pub fn run(input: String) {
     };
 
     for stream in listener.incoming() {
-        let cont = content.clone();
+        let content = content.clone();
         let stream = match stream {
             Ok(stream) => stream,
             Err(e) => {
@@ -32,7 +32,7 @@ pub fn run(input: String) {
                 exit(1)
             }
         };
-        pool.execute(move || handle_connection(stream, cont));
+        pool.execute(move || handle_connection(stream, content));
     }
 
     let mut stream = match TcpStream::connect("localhost:6789") {
