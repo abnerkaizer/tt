@@ -10,7 +10,7 @@ pub fn run(input: String) {
             exit(1)
         }
     };
-    let socket = match UdpSocket::bind("localhost:6789") {
+    let socket = match UdpSocket::bind("localhost:30789") {
         Ok(socket) => socket,
         Err(e) => {
             eprintln!("Couldn't bind to socket, error: {}", e);
@@ -25,11 +25,12 @@ pub fn run(input: String) {
         }
     };
 
-    match socket.send(content.as_bytes()) {
+    let num = match socket.send(content.as_bytes()) {
         Ok(num) => num,
         Err(e) => {
             eprintln!("Couldn't send to socket, error: {}", e);
             exit(1);
         }
     };
+    println!("{}", num);
 }
